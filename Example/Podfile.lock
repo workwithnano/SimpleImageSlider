@@ -14,11 +14,14 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - SimpleImageSlider (0.1.0):
+  - Masonry (1.0.1)
+  - SimpleImageSlider (0.1.1):
     - AFNetworking
+    - Masonry
 
 DEPENDENCIES:
   - AFNetworking
+  - Masonry
   - SimpleImageSlider (from `../`)
 
 EXTERNAL SOURCES:
@@ -27,8 +30,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  SimpleImageSlider: 527cbdfbc44fcb307eda1b51ff8b84a27eb2312c
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  SimpleImageSlider: 893a4d8882b4466fca61a684ec130e37daa74365
 
-PODFILE CHECKSUM: a0a95154ac47d2e880b8187f058c131afe4ac1c3
+PODFILE CHECKSUM: f98adba1152d0a7bae41771cc403faaedd7af59d
 
 COCOAPODS: 1.0.0

@@ -43,4 +43,11 @@
 @property (nonatomic, copy, nullable) NSArray<UIImage *> *images;
 
 
+/**
+ *  Attaches the SimpleImageSlider to a scrollview for a parallax effect.
+ *
+ *  @param scrollView The scrollview in which the ImageSlider is a subview, and from which scroll events will be taken. 
+ */
+- (void)addParallaxEffectWithScrollView:(nonnull UIScrollView *)scrollView height:(CGFloat)height;
+
 @end

@@ -27,6 +27,8 @@
   
     SimpleImageSlider *slider = [SimpleImageSlider imageSliderWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 300) images:images];
     self.tableView.tableHeaderView = slider;
+//    [self.tableView addSubview:slider];
+    [slider addParallaxEffectWithScrollView:self.tableView height:300];
 }
 
 
