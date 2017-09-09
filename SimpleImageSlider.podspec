@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
 
     s.source_files = 'SimpleImageSlider/Classes/**/*'
 
-    s.dependency 'AFNetworking'
+    s.dependency 'SDWebImage'
     s.dependency 'PureLayout'
 end

@@ -7,9 +7,9 @@
 //
 
 #import "SimpleImageSlider.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIScrollView+VGParallaxHeader.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface UIImageView (SimpleImageSlider)
 
@@ -363,12 +363,12 @@ const CGFloat ImageOffset = 0;
 - (void)setImageAnimatedWithURL:(NSURL *)imageURL placeholder:(UIImage *)placeholder;
 {
     __block UIImageView *weakSelf = self;
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imageURL];
-
-    [self setImageWithURLRequest:request
-                placeholderImage:placeholder
-                         success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) { [weakSelf setImageAnimated:image]; }
-                         failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) { [weakSelf setImageAnimated:placeholder]; }];
+    
+    [self sd_setImageWithURL:imageURL placeholderImage:placeholder options:0 completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (error != nil) {
+            [weakSelf setImageAnimated:placeholder];
+        }
+    }];
 }
 
 @end
