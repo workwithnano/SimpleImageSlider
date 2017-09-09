@@ -34,6 +34,8 @@ const CGFloat ImageOffset = 0;
 
 @implementation SimpleImageSlider
 
+BOOL finishedLayout = NO;
+
 #pragma mark - Initialization
 
 + (instancetype)imageSliderWithFrame:(CGRect)frame
@@ -97,7 +99,16 @@ const CGFloat ImageOffset = 0;
     self.clipsImagesToSliderBounds = NO;
 }
 
+#pragma mark - UIView layout
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (!finishedLayout) {
+        [self updateUI];
+        finishedLayout = YES;
+    }
+}
 
 
 #pragma mark - Main Method
@@ -117,34 +128,39 @@ const CGFloat ImageOffset = 0;
     }
     
     //get sizes
-    CGFloat height = self.frame.size.height;
-    CGFloat width = self.frame.size.width;
+    CGFloat height = CGRectGetHeight(self.bounds);
+    CGFloat width = CGRectGetWidth(self.bounds);
     
         //iterate through the imageobjects and create an imageview
     for (int i = 0; i < [self proxyData].count; i++) {
         
         //create frame size & position
-        CGRect imageSize = CGRectMake(i * width + ImageOffset,
+        CGRect imageFrame;
+        if (self.clipsImagesToSliderBounds) {
+            imageFrame= CGRectMake(i * width + ImageOffset,
+                                   0,
+                                   width,
+                                   height);
+        }
+        else {
+            imageFrame= CGRectMake(i * width + ImageOffset,
                                       0,
-                                      width - ImageOffset - ImageOffset,
+                                      width,
                                       height);
+        }
+        
         
         if ([self proxyData] == self.customViews) {
             
             UIView *view = self.customViews[i];
-            view.frame = imageSize;
+            view.frame = imageFrame;
             view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
             view.clipsToBounds = YES;
             [self addSubview:view];
         }
         else {
             UIImageView *imgView;
-            if (self.clipsImagesToSliderBounds) {
-                 imgView = [[UIImageView alloc] initWithFrame:self.bounds];
-            }
-            else {
-                imgView = [[UIImageView alloc] initWithFrame:imageSize];
-            }
+            imgView = [[UIImageView alloc] initWithFrame:imageFrame];
             imgView.contentMode = UIViewContentModeScaleAspectFill;
             imgView.clipsToBounds = YES;
             imgView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0.83 alpha:1];
