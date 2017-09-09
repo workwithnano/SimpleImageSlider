@@ -60,9 +60,14 @@
 @property (nonatomic, copy, nullable) NSArray<NSURL *> *imageURLs;
 
 /**
- *  The array of custom views used to populate the image scroller. Nil if the SImpleImageSlider was not created with custom views.
+ *  The array of custom views used to populate the image scroller. Nil if the SimpleImageSlider was not created with custom views.
  */
 @property (nullable, nonatomic, strong) NSArray<UIView *> *customViews;
+
+/**
+ *  Whether imageViews should clip images to the bounds of the SimpleImageSlider.
+ */
+@property (nonatomic) BOOL clipsImagesToSliderBounds;
 
 
 

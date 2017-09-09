@@ -94,6 +94,7 @@ const CGFloat ImageOffset = 0;
     self.backgroundColor = [UIColor clearColor];
     self.delegate = self;
     self.stopsSlideShowOnScroll = YES;
+    self.clipsImagesToSliderBounds = NO;
 }
 
 
@@ -137,7 +138,13 @@ const CGFloat ImageOffset = 0;
             [self addSubview:view];
         }
         else {
-            UIImageView *imgView = [[UIImageView alloc] initWithFrame:imageSize];
+            UIImageView *imgView;
+            if (self.clipsImagesToSliderBounds) {
+                 imgView = [[UIImageView alloc] initWithFrame:self.bounds];
+            }
+            else {
+                imgView = [[UIImageView alloc] initWithFrame:imageSize];
+            }
             imgView.contentMode = UIViewContentModeScaleAspectFill;
             imgView.clipsToBounds = YES;
             imgView.backgroundColor = [UIColor colorWithHue:0 saturation:0 brightness:0.83 alpha:1];
@@ -236,6 +243,15 @@ const CGFloat ImageOffset = 0;
 {
     if (_customViews != customViews) {
         _customViews = customViews;
+        
+        [self updateUI];
+        [self setupPageControl];
+    }
+}
+
+- (void)setClipsImagesToSliderBounds:(BOOL)clipsImagesToSliderBounds {
+    if (_clipsImagesToSliderBounds != clipsImagesToSliderBounds) {
+        _clipsImagesToSliderBounds = clipsImagesToSliderBounds;
         
         [self updateUI];
         [self setupPageControl];
